@@ -71,4 +71,22 @@ A empresa FastTech precisa de uma consultoria que desenvolva um sistema de gesta
 
 As regras aqui descritas podem ser alteradas de acordo com o contexto em que essa aplicacao vai ser utilizada. Sinta-se a vontade para dar dicas de melhorias. 
 
+### Ferramentas
+
+Esse projeto sera criado utilizando a o SDK do dotnet na versao 6, voce pode fazer o download [aqui](https://dotnet.microsoft.com/en-us/download)
+
+Vamos aprender a implementar diversas funcionalidades e a utilizar diversas ferramentas, sendo elas: 
+
+- ASP.NET 6 WEB API
+- Entity Framework Core
+- Fluent Validations
+- Documentação com Swagger
+- Autenticação
+- Autorização
+- JWT
+- Permissões de acesso de acordo com regras
+- E varias funcionalidades que conseguirmos colocar em prática.
+
+Valeu pessoas! 
+
 Crie ISSUES e FORKS.
