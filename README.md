@@ -2,7 +2,7 @@
 
 ## Empresa de vendas FastTech
 
-A empresa FASTTECH precisa de uma consultoria que desenvolva um sistema de gestao de vendas, para controlar melhor todo o fluxo da sua empresa.
+A empresa FastTech precisa de uma consultoria que desenvolva um sistema de gestao de vendas, para controlar melhor todo o fluxo da sua empresa.
 
 ### 01 - Acoes comuns
 
@@ -27,9 +27,13 @@ A empresa FASTTECH precisa de uma consultoria que desenvolva um sistema de gesta
 
 #### Administrador
 
-- O administrador so sistema, nao pode manipular recursos de vendas.
+- O administrador do sistema, nao pode manipular recursos de vendas.
 
 ### 03 - Gerenciamento do setor
+
+#### Vendedor
+
+- Nao pode realizar alteracoes no setor.
 
 #### Gerente
 
@@ -42,9 +46,29 @@ A empresa FASTTECH precisa de uma consultoria que desenvolva um sistema de gesta
 
 - Somente administradores podem manipular os dados de um setor.
 
-## 04 - Controle de acesso
+### 04 - Catalogo de produtos
+
+#### Vendedor
+
+- Um vendedor pode consultar produtos.
+
+#### Gerente
+
+- Um gerente pode consultar produtos.
+
+#### Administrador
+
+- Um administrador pode cadastrar produtos.
+- Um administrador pode editar produtos.
+- Um administrador pode desabilitar um produto.
+
+### 05 - Controle de acesso
 
 - Um usuario so podera acessar a aplicacao se estiver devidamente cadastrado e autenticado.
 - O sistema deve ter 03 niveis de acesso, sendo eles: Administrador, Gerente e Vendedor.
 - Um usuario so podera acessar recurso que o seu nivel de acesso permita.
 - Um usuario nao pode alterar o seu email.
+
+As regras aqui descritas podem ser alteradas de acordo com o contexto em que essa aplicacao vai ser utilizada. Sinta-se a vontade para dar dicas de melhorias. 
+
+Crie ISSUES e FORKS.
