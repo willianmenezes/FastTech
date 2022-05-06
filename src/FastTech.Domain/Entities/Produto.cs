@@ -1,6 +1,7 @@
-﻿using FastTech.Domain.Enums;
+﻿using FastTech.Domain.Common;
+using FastTech.Domain.Enums;
 
-namespace FastTech.Domain.Entidades;
+namespace FastTech.Domain.Entities;
 
 internal class Produto : Entity
 {
@@ -14,10 +15,12 @@ internal class Produto : Entity
         Cadastro = DateTime.UtcNow;
         Tipo = tipo;
         QuantidadeEstoque = quantidadeEstoque;
+
+        Validar();
     }
 
-    public string Nome { get; private set; }
-    public string Descricao { get; private set; }
+    public string? Nome { get; private set; }
+    public string? Descricao { get; private set; }
     public bool Ativo { get; private set; }
     public decimal Valor { get; private set; }
     public DateTime Cadastro { get; private set; }
@@ -33,7 +36,7 @@ internal class Produto : Entity
     public void AlterarNome(string novoNome)
     {
         if (string.IsNullOrWhiteSpace(novoNome))
-            throw new Exception("Nome invalido.");
+            throw new DomainException("Nome invalido.");
 
         Nome = novoNome;
     }
@@ -41,7 +44,7 @@ internal class Produto : Entity
     public void AlterarDescricao(string novaDescricao)
     {
         if (string.IsNullOrWhiteSpace(novaDescricao))
-            throw new Exception("Descricao invalida.");
+            throw new DomainException("Descricao invalida.");
 
         Descricao = novaDescricao;
     }
@@ -49,11 +52,11 @@ internal class Produto : Entity
     public void DebitarEstoque(int quantidade)
     {
         if (quantidade < 0)
-            throw new Exception("Quantidade invalida.");
+            throw new DomainException("Quantidade invalida.");
 
         if (!PossuiEstoque(quantidade))
         {
-            throw new Exception("Quantidade em estoque insuficiente");
+            throw new DomainException("Quantidade em estoque insuficiente");
         }
 
         QuantidadeEstoque -= quantidade;
@@ -64,5 +67,23 @@ internal class Produto : Entity
     public void AdicionarEstoque(int quantidade)
     {
         QuantidadeEstoque += quantidade;
+    }
+
+    protected override void Validar()
+    {
+        if (string.IsNullOrWhiteSpace(Nome))
+            throw new DomainException("O nome nao pode estar vazio.");
+
+        if (string.IsNullOrWhiteSpace(Descricao))
+            throw new DomainException("A descricao nao pode estar vazia.");
+
+        if (Valor <= 0)
+            throw new DomainException("O valor nao pode ser menor ou igual a 0."); 
+        
+        if (Cadastro.Date < DateTime.UtcNow.Date)
+            throw new DomainException("O produto nao pode ser cadastrado em uma data retroativa.");
+        
+        if (QuantidadeEstoque < 0)
+            throw new DomainException("Quantidade invalida.");
     }
 }

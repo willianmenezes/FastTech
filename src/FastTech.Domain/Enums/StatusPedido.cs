@@ -3,6 +3,6 @@
 internal enum StatusPedido
 {
     Novo,
-    EmAndamento,
+    AguardandoPagamento,
     Concluido
 }

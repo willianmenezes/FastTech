@@ -1,4 +1,4 @@
-﻿namespace FastTech.Domain.Entidades;
+﻿namespace FastTech.Domain.Common;
 
 internal abstract class Entity
 {
@@ -8,4 +8,6 @@ internal abstract class Entity
     {
         Id = Guid.NewGuid();
     }
+
+    protected abstract void Validar();
 }

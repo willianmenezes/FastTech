@@ -1,6 +1,7 @@
-﻿using FastTech.Domain.Enums;
+﻿using FastTech.Domain.Common;
+using FastTech.Domain.Enums;
 
-namespace FastTech.Domain.Entidades;
+namespace FastTech.Domain.Entities;
 
 internal class Pedido : Entity
 {
@@ -14,6 +15,8 @@ internal class Pedido : Entity
     public Pedido()
     {
         _pedidoItems = new List<PedidoItem>();
+        Cadastro = DateTime.UtcNow;
+        Status = StatusPedido.Novo;
     }
 
     public void CalcularValorTotal()
@@ -23,6 +26,8 @@ internal class Pedido : Entity
 
     public void AdicionarItemNoPedido(PedidoItem pedidoItem)
     {
+        pedidoItem.VincularPedido(Id);
+
         if (ExistePedidoItem(pedidoItem)
             is var itemEncontrado && itemEncontrado != null)
         {
@@ -43,15 +48,46 @@ internal class Pedido : Entity
         if (ExistePedidoItem(pedidoItem)
            is var itemEncontrado && itemEncontrado == null)
         {
-            throw new Exception("O item nao foi encontrado no pedido. Item invalido.");
+            throw new DomainException("O item nao foi encontrado no pedido. Item invalido.");
         }
 
         _pedidoItems.Remove(itemEncontrado);
         CalcularValorTotal();
     }
 
+    public void AtualizarQuantidadeItem(PedidoItem item, int novaQuantidade)
+    {
+        if (ExistePedidoItem(item)
+           is var itemEncontrado && itemEncontrado == null)
+        {
+            throw new DomainException("O item nao foi encontrado no pedido. Item invalido.");
+        }
+
+        itemEncontrado.AtualizarQuantidade(novaQuantidade);
+        CalcularValorTotal();
+    }
+
+    public void AguardarPagamento()
+    {
+        Status = StatusPedido.AguardandoPagamento;
+    }
+
+    public void ConcluirPedido()
+    {
+        Status = StatusPedido.Concluido;
+    }
+
     private PedidoItem ExistePedidoItem(PedidoItem item)
     {
         return _pedidoItems.FirstOrDefault(pedidoItem => pedidoItem.ProdutoId == item.ProdutoId);
+    }
+
+    protected override void Validar()
+    {
+        if (Cadastro.Date <= DateTime.UtcNow.Date)
+            throw new DomainException("Data de cadastro invalida.");
+
+        if (Cadastro.Date <= DateTime.UtcNow.Date)
+            throw new DomainException("Data de cadastro invalida.");
     }
 }
