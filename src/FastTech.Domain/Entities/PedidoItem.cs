@@ -2,7 +2,7 @@
 
 namespace FastTech.Domain.Entities;
 
-internal class PedidoItem : Entity
+public class PedidoItem : Entity
 {
     public Guid PedidoId { get; private set; }
     public Guid ProdutoId { get; private set; }

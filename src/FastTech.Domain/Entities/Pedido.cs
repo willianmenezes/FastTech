@@ -3,7 +3,7 @@ using FastTech.Domain.Enums;
 
 namespace FastTech.Domain.Entities;
 
-internal class Pedido : Entity
+public class Pedido : Entity
 {
     public DateTime Cadastro { get; private set; }
     public decimal ValorTotal { get; private set; }

@@ -3,7 +3,7 @@ using FastTech.Domain.Enums;
 
 namespace FastTech.Domain.Entities;
 
-internal class Produto : Entity
+public class Produto : Entity
 {
     public Produto(string nome, string descricao, decimal valor,
         TipoProduto tipo, int quantidadeEstoque)

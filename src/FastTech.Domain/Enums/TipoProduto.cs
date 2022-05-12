@@ -1,6 +1,6 @@
 ﻿namespace FastTech.Domain.Enums;
 
-internal enum TipoProduto
+public enum TipoProduto
 {
     Celular,
     Computador,

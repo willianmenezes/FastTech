@@ -1,6 +1,6 @@
 ﻿namespace FastTech.Domain.Common;
 
-internal abstract class Entity
+public abstract class Entity
 {
     public Guid Id { get; private set; }
 

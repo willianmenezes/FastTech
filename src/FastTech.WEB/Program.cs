@@ -1,15 +1,24 @@
+using FastTech.Domain.Interfaces.Repositories;
+using FastTech.Infrastructure.Context;
+using FastTech.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// condigurar provider banco de dados
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FastTechConnection"),
+    x => x.MigrationsHistoryTable("Historico_Migracoes_EF")));
+
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
