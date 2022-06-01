@@ -1,4 +1,4 @@
-﻿using FastTech.Domain.Common;
+﻿using FastTech.Domain.DomainObjects;
 using FastTech.Domain.Enums;
 
 namespace FastTech.Domain.Entities;

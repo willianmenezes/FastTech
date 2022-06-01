@@ -13,4 +13,13 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FastTech.Core\FastTech.Core.csproj" />
+    <ProjectReference Include="..\FastTech.Domain\FastTech.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.0.2" />
+  </ItemGroup>
+
 </Project>

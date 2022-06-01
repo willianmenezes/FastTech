@@ -1,6 +1,9 @@
+using FastTech.Application.NotificationErros;
+using FastTech.Application.Services.ProdutoHandler;
 using FastTech.Domain.Interfaces.Repositories;
 using FastTech.Infrastructure.Context;
 using FastTech.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FastTechConnection"),
     x => x.MigrationsHistoryTable("Historico_Migracoes_EF")));
+
+// Configurando Mediatr
+builder.Services.AddMediatR(typeof(Program));
+builder.Services.AddScoped<IRequestHandler<CadastrarProdutoRequest, bool>, ProdutoRequestHandler>();
+
+// notificacoes erro
+builder.Services.AddScoped<INotificationHandler<NotificationError>, NotificationErrorHandler>();
 
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 

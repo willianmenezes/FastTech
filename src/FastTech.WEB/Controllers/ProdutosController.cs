@@ -1,22 +1,26 @@
-using FastTech.Domain.Interfaces.Repositories;
+using FastTech.Application.NotificationErros;
+using FastTech.Application.Services.ProdutoHandler;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FastTech.WEB.Controllers;
 
-[ApiController]
 [Route("api/[controller]")]
 public class ProdutosController : MainController
 {
-    private readonly IProdutoRepository _produtoRepository;
-
-    public ProdutosController(IProdutoRepository produtoRepository)
+    public ProdutosController(IMediator mediator, 
+        INotificationHandler<NotificationError> notificationHandler) : base(mediator, notificationHandler)
     {
-        _produtoRepository = produtoRepository;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> BuscarProdutos()
+    [HttpPost]
+    public async Task<IActionResult> CadastrarProduto([FromBody] CadastrarProdutoRequest request)
     {
-        return Ok(await _produtoRepository.BuscarTodosAsync());
+        await Mediator.Send(request);
+
+        if (ProcessoInvalido())
+            return BadRequest(ObterError());
+        
+        return Ok();
     }
 }
