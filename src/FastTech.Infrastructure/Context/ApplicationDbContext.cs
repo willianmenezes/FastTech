@@ -1,9 +1,10 @@
 ﻿using FastTech.Domain.Entities;
+using FastTech.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FastTech.Infrastructure.Context;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : DbContext, IUnityOfWork
 {
     public DbSet<Produto> Produtos { get; set; }
 
@@ -32,5 +33,17 @@ public class ApplicationDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
+    }
+
+    public async Task Commit()
+    {
+        foreach (var entry in ChangeTracker.Entries()
+                     .Where(x => x.Entity.GetType().GetProperty("Cadastro") != null))
+        {
+            if (entry.State == EntityState.Modified)
+                entry.Property("Cadastro").IsModified = false;
+        }
+
+        await SaveChangesAsync();
     }
 }

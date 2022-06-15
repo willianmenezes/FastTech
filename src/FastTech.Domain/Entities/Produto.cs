@@ -83,7 +83,7 @@ public class Produto : Entity
         if (Cadastro.Date < DateTime.UtcNow.Date)
             throw new DomainException("O produto nao pode ser cadastrado em uma data retroativa.");
         
-        if (QuantidadeEstoque < 0)
+        if (QuantidadeEstoque <= 0)
             throw new DomainException("Quantidade invalida.");
     }
 }
