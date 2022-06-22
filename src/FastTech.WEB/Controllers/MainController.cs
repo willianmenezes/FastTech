@@ -8,12 +8,12 @@ namespace FastTech.WEB.Controllers
     public abstract class MainController : ControllerBase
     {
         protected readonly IMediator Mediator;
-        protected readonly NotificationErrorHandler NotificationHandler;
+        protected readonly NotificacaoErroHandler NotificationHandler;
 
-        protected MainController(IMediator mediator, INotificationHandler<NotificationError> notificationHandler)
+        protected MainController(IMediator mediator, INotificationHandler<NotificacaoErro> notificationHandler)
         {
             Mediator = mediator;
-            NotificationHandler = (NotificationErrorHandler)notificationHandler;
+            NotificationHandler = (NotificacaoErroHandler)notificationHandler;
         }
 
         protected bool ProcessoInvalido()
@@ -21,7 +21,7 @@ namespace FastTech.WEB.Controllers
             return NotificationHandler.ExisteErros();
         }
 
-        protected IEnumerable<NotificationError> ObterError()
+        protected IEnumerable<NotificacaoErro> ObterError()
         {
             return NotificationHandler.ObterErros();
         }

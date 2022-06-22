@@ -1,9 +1,10 @@
+using FastTech.Application.DTOs;
 using FastTech.Domain.Enums;
 using MediatR;
 
 namespace FastTech.Application.Services.ProdutoHandler;
 
-public class CadastrarProdutoRequest : IRequest<bool>
+public class CadastrarProdutoRequest : IRequest<BaseResponse>
 {
     public CadastrarProdutoRequest(string? nome, string? descricao, decimal valor, TipoProduto tipo, int quantidadeEstoque)
     {

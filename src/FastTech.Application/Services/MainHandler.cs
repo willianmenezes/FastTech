@@ -22,7 +22,7 @@ public abstract class MainHandler
         var validationResult = validator.Validate(entity);
         foreach (var error in validationResult.Errors)
         {
-            Mediator.Publish(new NotificationError(entity.GetType().Name, error.ErrorMessage));
+            Mediator.Publish(new NotificacaoErro(entity.GetType().Name, error.ErrorMessage));
         }
 
         return validationResult.IsValid;

@@ -2,15 +2,15 @@ using MediatR;
 
 namespace FastTech.Application.NotificationErros;
 
-public class NotificationError : INotification
+public class NotificacaoErro : INotification
 {
-    public NotificationError(string nomeProcesso, string mensagem)
+    public NotificacaoErro(string nomeProcesso, string mensagem)
     {
         NomeProcesso = nomeProcesso;
         Mensagem = mensagem;
     }
     
-    public NotificationError(string mensagem)
+    public NotificacaoErro(string mensagem)
     {
         NomeProcesso = "Processo padrao";
     }

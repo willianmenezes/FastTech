@@ -1,3 +1,4 @@
+using FastTech.Application.DTOs;
 using FastTech.Application.NotificationErros;
 using FastTech.Application.Services.ProdutoHandler;
 using MediatR;
@@ -8,19 +9,19 @@ namespace FastTech.WEB.Controllers;
 [Route("api/[controller]")]
 public class ProdutosController : MainController
 {
-    public ProdutosController(IMediator mediator, 
-        INotificationHandler<NotificationError> notificationHandler) : base(mediator, notificationHandler)
+    public ProdutosController(IMediator mediator,
+        INotificationHandler<NotificacaoErro> notificationHandler) : base(mediator, notificationHandler)
     {
     }
 
     [HttpPost]
     public async Task<IActionResult> CadastrarProduto([FromBody] CadastrarProdutoRequest request)
     {
-        await Mediator.Send(request);
+        var resultado = await Mediator.Send(request);
 
         if (ProcessoInvalido())
-            return BadRequest(ObterError());
-        
-        return Ok();
+            return BadRequest(BaseResponse.Erro(ObterError()));
+
+        return Ok(resultado);
     }
 }
