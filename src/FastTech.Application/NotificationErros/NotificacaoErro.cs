@@ -17,4 +17,5 @@ public class NotificacaoErro : INotification
 
     public string NomeProcesso { get; set; }
     public string Mensagem { get; set; }
+    
 }
